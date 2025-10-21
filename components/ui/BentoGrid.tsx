@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic"; // ✅ Added for dynamic import
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false }); // ✅ Prevents SSR issue
 import { cn } from "@/lib/utils";
 import { BackgroundGradientAnimation } from "./GradientBg";
 import GridGlobe from "./GridGlobe";
@@ -56,8 +57,6 @@ export const BentoGridItem = ({
         const text = "hsu@jsmastery.pro";
         navigator.clipboard.writeText(text);
         setCopied(true);
-
-        // Reset animation state after a short delay
         setTimeout(() => setCopied(false), 3000);
     };
 
@@ -74,7 +73,7 @@ export const BentoGridItem = ({
             }}
         >
             <div className={`${id === 6 && "flex justify-center"} h-full`}>
-                {/* Main background image */}
+                {/* Background image */}
                 <div className="w-full h-full absolute">
                     {img && (
                         <img
